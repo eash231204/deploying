@@ -11,10 +11,11 @@ app=Flask(__name__)
 
 url='https://github.com/eash231204/recommender/blob/main/data.csv?raw=true'
 df=pd.read_csv(url,index_col=0)
+df['Course name'].apply(lambda x:x.lower())
 
 
 def rec(course):
-    
+    course=course.lower()
     if course not in df['Course name'].values:
         return [{'course_name': 'Course not found', 'url': ''}]
     
