@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import normalize
-
+import os
 
 
 
@@ -50,7 +50,7 @@ def search():
     recommendations=rec(search_term)
     return render_template('results.html',search_term=search_term,recommendations=recommendations)
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
     
     
 
