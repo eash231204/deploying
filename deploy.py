@@ -8,7 +8,7 @@ import os
 
 app=Flask(__name__)
 
-url='https://github.com/eash231204/recommender/blob/main/data.csv?raw=true'
+url = 'https://raw.githubusercontent.com/eash231204/recommender/main/data.csv'
 df=pd.read_csv(url,index_col=0)
 
 
