@@ -128,7 +128,7 @@
         <ul>
             {% for recommendation in recommendations %}
                 <li>
-                    <a href="{{ recommendation.url }}" target="_blank">
+                    <a href="{{ recommendation.url|safe }}" target="_blank">
                         {{ recommendation.course_name }}
                     </a>
                 </li>
