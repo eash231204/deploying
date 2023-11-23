@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            margin: 0;
+            margin: 100px 0 0 0;
             padding: 0;
             background-color: #164863; /* Dark blue background color */
             display: flex;
@@ -32,7 +33,8 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             margin: 0;
             padding: 0;
         }
@@ -119,9 +121,118 @@
         input[type="submit"]:hover {
             background-color: #DDF2FD;
         }
+
+        .loading-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .loading {
+            border: 4px solid #f3f3f3; /* Light gray border */
+            border-top: 4px solid #3498db; /* Blue border for animation */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite; /* Animation for spinning */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .feedback-btn-container {
+            position: fixed;
+            top: 50%;
+            height:100px;
+            transform: translateY(-50%);
+            overflow: hidden;
+            cursor: pointer;
+            z-index: 1002; /* Set a higher z-index than other elements */
+        }
+
+        .feedback-btn {
+            background-color: #9BBEC8;
+            color: #164863;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            writing-mode: vertical-lr; /* Text written vertically */
+            text-orientation: upright; /* Ensures upright text */
+            position: relative;
+            left:10px:
+            diplay:flex;
+            zlign-items:center;
+        }
+
+        .feedback-btn-arrow {
+            display: inline-block;
+            transform: rotate(180deg); /* Rotate the arrow */
+            margin-right:25px;
+        }
+
+        .feedback-btn:hover {
+            background-color: #DDF2FD;
+        }
+
+        .feedback-dropdown {
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+        }
+
+        .star {
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .star:hover {
+            color: #427D9D;
+        }
+
+        .thanks-message {
+            display: none;
+            color: #427D9D;
+            margin-top: 10px;
+        }
     </style>
+
 </head>
+
 <body>
+    <div class="loading-container" id="loading">
+        <div class="loading"></div>
+        <p>Loading...</p>
+    </div>
     <div class="container">
         <h1>Congratulations on completing the course!<br>"{{ search_term }}"</h1>
         <h4>You might also like:</h4>
@@ -135,5 +246,55 @@
             {% endfor %}
         </ul>
     </div>
+
+    <script>
+        // Function to show loading animation
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+        }
+
+        // Function to hide loading animation
+        function hideLoading() {
+            document.getElementById("loading").style.display = "none";
+        }
+
+        // Call showLoading when the page is loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            showLoading();
+        });
+
+        // Call hideLoading when the recommendations are ready
+        document.addEventListener("DOMContentLoaded", function () {
+            hideLoading();
+        });
+
+        function toggleFeedback() {
+            var feedbackDropdown = document.getElementById("feedbackDropdown");
+            feedbackDropdown.style.right = feedbackDropdown.style.right === "0px" ? "-250px" : "0";
+        }
+
+        function setRating(rating) {
+            // You can add logic to handle the selected rating.
+            console.log("Selected rating:", rating);
+        }
+
+        function submitFeedback() {
+            var feedbackForm = document.getElementById("feedbackForm");
+            var thanksMessage = document.getElementById("thanksMessage");
+
+            // You can add your logic here to handle the feedback submission, e.g., sending it to the server.
+
+            feedbackForm.style.display = "none";
+            thanksMessage.style.display = "block";
+
+            // Automatically close the feedback dropdown after a delay (you can adjust the delay as needed).
+            setTimeout(function () {
+                toggleFeedback();
+            }, 2000);
+        }
+    </script>
 </body>
+
 </html>
+
+
