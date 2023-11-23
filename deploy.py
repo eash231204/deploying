@@ -8,7 +8,7 @@ import os
 
 app=Flask(__name__)
 
-url = 'https://raw.githubusercontent.com/eash231204/recommender/main/data.csv'
+url = 'https://raw.githubusercontent.com/eash231204/recommender/main/dataset.csv'
 df=pd.read_csv(url,index_col=0)
 
 
@@ -25,7 +25,7 @@ def rec(course):
     
     
     cv=CountVectorizer(max_features=10000, stop_words='english')
-    vectors=cv.fit_transform(course_df['stemmed']).toarray()
+    vectors=cv.fit_transform(course_df['keywords']).toarray()
     vectors_normalized = normalize(vectors)
     
     similarity=cosine_similarity([vectors_normalized[course_index]],vectors_normalized)
